@@ -2,13 +2,13 @@ package org.tendiwa.plane.geometry.straightSkeleton;
 
 
 interface MutableFace extends Iterable<Node> {
-	void addLink(Node one, Node another);
+    void addLink(Node one, Node another);
 
-	boolean isClosed();
+    boolean isClosed();
 
-	StraightSkeletonFace toPolygon();
+    StraightSkeletonFace toPolygon();
 
-	Node getNodeFromLeft(LeftSplitNode leftNode);
+    Node getNodeFromLeft(LeftSplitNode leftNode);
 
-	Node getNodeFromRight(RightSplitNode rightNode);
+    Node getNodeFromRight(RightSplitNode rightNode);
 }

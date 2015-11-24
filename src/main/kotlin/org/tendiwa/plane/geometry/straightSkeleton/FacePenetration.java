@@ -1,6 +1,6 @@
 package org.tendiwa.plane.geometry.straightSkeleton;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.PriorityQueue;

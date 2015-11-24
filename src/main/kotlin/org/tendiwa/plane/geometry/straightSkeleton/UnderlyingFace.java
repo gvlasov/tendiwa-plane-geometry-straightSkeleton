@@ -1,17 +1,17 @@
 package org.tendiwa.plane.geometry.straightSkeleton;
 
 interface UnderlyingFace {
-	Chain startHalfface();
+    Chain startHalfface();
 
-	boolean isHalfface(Chain chain);
+    boolean isHalfface(Chain chain);
 
-	Chain lastAddedChain();
+    Chain lastAddedChain();
 
-	void increaseNumberOfSkeletonNodes(int d);
+    void increaseNumberOfSkeletonNodes(int d);
 
-	void addNewSortedEnd(Node oneEnd);
+    void addNewSortedEnd(Node oneEnd);
 
-	void setLastAddedChain(Chain chain);
+    void setLastAddedChain(Chain chain);
 
-	void forgetNodeProjection(Node node);
+    void forgetNodeProjection(Node node);
 }

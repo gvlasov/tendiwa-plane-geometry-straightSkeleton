@@ -7,8 +7,8 @@ import org.tendiwa.geometry.polygons.PolygonConstructorsKt;
 import org.tendiwa.geometry.segments.Segment;
 
 final class StraightSkeletonFace {
-    private Segment front;
     private final Polygon polygon;
+    private Segment front;
 
     public StraightSkeletonFace(List<Point> points) {
         this.polygon = PolygonConstructorsKt.Polygon(points);

@@ -5,13 +5,17 @@ import org.tendiwa.geometry.points.Point;
 
 final class LeftSplitNode extends SplitNode {
 
-	LeftSplitNode(Point point, OriginalEdgeStart previousEdgeStart, OriginalEdgeStart currentEdgeStart) {
-		super(point, previousEdgeStart, currentEdgeStart);
-	}
+    LeftSplitNode(
+        Point point,
+        OriginalEdgeStart previousEdgeStart,
+        OriginalEdgeStart currentEdgeStart
+    ) {
+        super(point, previousEdgeStart, currentEdgeStart);
+    }
 
-	@Override
-	boolean isLeft() {
-		return true;
-	}
+    @Override
+    boolean isLeft() {
+        return true;
+    }
 
 }

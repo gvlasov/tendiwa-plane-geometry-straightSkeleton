@@ -20,12 +20,6 @@ abstract class SplitNode extends Node {
         super(point, previousEdgeStart, currentEdgeStart);
     }
 
-    void setPair(SplitNode pair) {
-        assert pair.vertex.equals(vertex);
-        this.pair = pair;
-    }
-
-
     @Override
     boolean hasPair() {
         return true;
@@ -36,6 +30,10 @@ abstract class SplitNode extends Node {
         return pair;
     }
 
+    void setPair(SplitNode pair) {
+        assert pair.vertex.equals(vertex);
+        this.pair = pair;
+    }
 
     @Override
     public boolean isPair(Node node) {

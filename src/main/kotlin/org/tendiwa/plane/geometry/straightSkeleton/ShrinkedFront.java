@@ -23,13 +23,14 @@ import org.tendiwa.math.constants.ConstantsKt;
 final class ShrinkedFront implements Penetrable {
 
     private final double depth;
-    public List<Segment> edges;
     private final LinkedHashMap<Point, DoublyLinkedNode<Point>> pointsToNodes;
     private final BiMap<Point, Segment> intersectionsOnSegments;
+    public List<Segment> edges;
 
     /**
-     * @param faces Clockwise polygons partitioning a compound polygon. For each partitioning polygon, its last edge is the only
-     * edge touching the perimeter of the compound polygon.
+     * @param faces Clockwise polygons partitioning a compound polygon. For each
+     * partitioning polygon, its last edge is the only edge touching the
+     * perimeter of the compound polygon.
      * @param depth How much to intrude the polygon.
      */
     ShrinkedFront(Collection<StraightSkeletonFace> faces, double depth) {

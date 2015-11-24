@@ -12,9 +12,9 @@ import org.tendiwa.grid.dimensions.GridDimensionConstructorsKt;
 import static java.util.stream.Collectors.toList;
 
 final class Debug {
-    private final boolean debug = true;
     public final static Canvas canvas =
         new AwtCanvas(GridDimensionConstructorsKt.by(400, 400), 1);
+    private final boolean debug = true;
 //        new NullCanvas();
 
     Debug() {

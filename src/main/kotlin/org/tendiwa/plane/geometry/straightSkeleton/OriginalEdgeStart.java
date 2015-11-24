@@ -10,8 +10,8 @@ import org.tendiwa.geometry.segments.Segment;
 import org.tenidwa.collections.utils.SuccessiveTuples;
 
 /**
- * Apart from being a {@link Node}, this class acts as an access point to an original edge of a polygon emanating
- * from this node.
+ * Apart from being a {@link Node}, this class acts as an access point to an
+ * original edge of a polygon emanating from this node.
  */
 final class OriginalEdgeStart extends Node {
     private MutableFace mutableFace;
@@ -27,7 +27,10 @@ final class OriginalEdgeStart extends Node {
     }
 
     void initFace() {
-        this.mutableFace = new IncompleteMutableFace(currentEdgeStart, (OriginalEdgeStart) currentEdgeStart.next());
+        this.mutableFace = new IncompleteMutableFace(
+            currentEdgeStart,
+            (OriginalEdgeStart) currentEdgeStart.next()
+        );
     }
 
 

@@ -45,7 +45,7 @@ private val Polygon.segmentsToSlopes: Map<Segment, Double>
     get() =
     this.segments
         .map { Pair(it, it.run { absSmallerOverAbsGreater(dx, dy) }) }
-        .map{ treatNegative0SlopeAsJust0(it) }
+        .map { treatNegative0SlopeAsJust0(it) }
         .toMap()
 
 fun treatNegative0SlopeAsJust0(

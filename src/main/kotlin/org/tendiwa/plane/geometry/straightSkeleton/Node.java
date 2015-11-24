@@ -2,7 +2,7 @@ package org.tendiwa.plane.geometry.straightSkeleton;
 
 import com.google.common.collect.Iterators;
 import com.sun.istack.internal.Nullable;
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,19 +25,19 @@ import org.tenidwa.collections.utils.SuccessiveTuples;
  * A node in a circular list of active vertices.
  */
 abstract class Node implements Iterable<Node> {
-    Segment bisector;
-    private boolean isProcessed = false; // As said in 1a in [Obdrzalek 1998, paragraph 2.1]
-    boolean isReflex;
+    final Point vertex;
     protected Node next;
-    private Node previous;
     /**
-     * Along with {@link #previousEdgeStart}, determines the direction of {@link #bisector} as well as two faces that
-     * this Node divides.
+     * Along with {@link #previousEdgeStart}, determines the direction of
+     * {@link #bisector} as well as two faces that this Node divides.
      */
     protected OriginalEdgeStart currentEdgeStart;
     protected OriginalEdgeStart previousEdgeStart;
     protected Segment currentEdge;
-    final Point vertex;
+    Segment bisector;
+    boolean isReflex;
+    private boolean isProcessed = false; // As said in 1a in [Obdrzalek 1998, paragraph 2.1]
+    private Node previous;
 
     Node(
         Point point,
@@ -59,6 +59,56 @@ abstract class Node implements Iterable<Node> {
             && SegmentOperationsKt.isParallel(previousEdge(), previousEdge()));
     }
 
+    protected Node(Point vertex) {
+        this.vertex = vertex;
+    }
+
+    @Nullable
+    private static EdgeEvent trySameLineIntersection(
+        RayIntersection intersection,
+        Node current,
+        Node target
+    ) {
+        if (Double.isInfinite(intersection.getR())) {
+            return new EdgeEvent(
+                new Point(
+                    (target.vertex.getX() + current.vertex.getX()) / 2,
+                    (target.next().vertex.getY() + current.vertex.getY()) / 2
+                ),
+                current,
+                target
+            );
+        }
+        return null;
+    }
+
+    /**
+     * Given 3 counter-clockwise points of a polygon, check if the middle one is convex or reflex.
+     * @param previous Beginning of vector 1.
+     * @param point End of vector 1 and beginning of vector 2.
+     * @param next End of vector 2.
+     * @return true if {@code point} is non-convex, false if it is convex.
+     */
+    private static boolean isPointNonConvex(
+        Point previous,
+        Point point,
+        Point next
+    ) {
+        //  TODO: There is similar method isReflex; remove this method.
+        return perpDotProduct(
+            new double[]{point.getX() - previous.getX(), point.getY() - previous.getY()},
+            new double[]{next.getX() - point.getX(), next.getY() - point.getY()}
+        ) >= 0;
+    }
+
+    // TODO: Refactor this to use Vectors instead of arrays
+    private static double perpDotProduct(double[] a, double[] b) {
+        return VectorOperationsKt.dotPerp(
+            new Vector(a[0], a[1]),
+            new Vector(b[0], b[1])
+        );
+    }
+
     /**
      * Adds {@code newNode} to faces at {@link #currentEdgeStart} and {@link #previousEdgeStart} <i>if</i> it is
      * necessary.
@@ -78,10 +128,6 @@ abstract class Node implements Iterable<Node> {
 
     private void growFace(Node newNode, OriginalEdgeStart faceStart) {
         faceStart.face().addLink(this, newNode);
-    }
-
-    protected Node(Point vertex) {
-        this.vertex = vertex;
     }
 
     public void drawLav() {
@@ -171,12 +217,14 @@ abstract class Node implements Iterable<Node> {
     }
 
     /**
-     * Finds if two edges going counter-clockwise make a convex or a reflex angle.
+     * Finds if two edges going counter-clockwise make a convex or a reflex
+     * angle.
      * @param a1 Start of the first edge.
      * @param a2 End of the first edge.
      * @param b1 Start of the second edge.
      * @param b2 End of the second edge.
-     * @return True if the angle to the left between two edges > Math.PI (reflex), false otherwise (convex).
+     * @return True if the angle to the left between two edges
+     * {@code > Math.PI} (reflex), false otherwise (convex).
      */
     private boolean isReflex(Point a1, Point a2, Point b1, Point b2) {
         return perpDotProduct(
@@ -184,7 +232,6 @@ abstract class Node implements Iterable<Node> {
             new double[]{b2.getX() - b1.getX(), b2.getY() - b1.getY()}
         ) > 0;
     }
-
 
     public void setPreviousInLav(Node previous) {
         assert previous != this;
@@ -198,7 +245,8 @@ abstract class Node implements Iterable<Node> {
     }
 
     /**
-     * Iterates over the current LAV of the node. All the nodes iterated upon are non-processed.
+     * Iterates over the current LAV of the node. All the nodes iterated upon
+     * are non-processed.
      */
     @Override
     public Iterator<Node> iterator() {
@@ -250,7 +298,12 @@ abstract class Node implements Iterable<Node> {
             }
 
             private void drawLav() {
-                Iterator<Color> colors = Iterators.cycle(Color.darkGray, Color.gray, Color.lightGray, Color.white);
+                Iterator<Color> colors = Iterators.cycle(
+                    Color.darkGray,
+                    Color.gray,
+                    Color.lightGray,
+                    Color.white
+                );
                 for (int i = 0; i < points.size() - 1; i++) {
                     Debug.canvas.draw(
                         new Segment(points.get(i), points.get(i + 1)),
@@ -345,30 +398,12 @@ abstract class Node implements Iterable<Node> {
         return new RayIntersection(bisector, node.bisector);
     }
 
-    @Nullable
-    private static EdgeEvent trySameLineIntersection(
-        RayIntersection intersection,
-        Node current,
-        Node target
-    ) {
-        if (Double.isInfinite(intersection.getR())) {
-            return new EdgeEvent(
-                new Point(
-                    (target.vertex.getX() + current.vertex.getX()) / 2,
-                    (target.next().vertex.getY() + current.vertex.getY()) / 2
-                ),
-                current,
-                target
-            );
-        }
-        return null;
-    }
-
     /**
      * [Obdrzalek 1998, paragraph 2.2, figure 4]
      * <p>
      * Computes the point where a split event occurs.
-     * @return The point where split event occurs, or null if there is no split event emanated from {@code reflexNode}.
+     * @return The point where split event occurs, or null if there is no split
+     * event emanated from {@code reflexNode}.
      */
     @Nullable
     private SplitEvent findSplitEvent() {
@@ -401,8 +436,9 @@ abstract class Node implements Iterable<Node> {
      * <p>
      * Computes point B_i.
      * @param oppositeEdge The tested line segment.
-     * @return Intersection between the bisector at {@code currentNode} and the axis of the angle between one of the
-     * edges starting at {@code currentNode} and the tested line segment {@code oppositeEdge}.
+     * @return Intersection between the bisector at {@code currentNode} and the
+     * axis of the angle between one of the edges starting at
+     * {@code currentNode} and the tested line segment {@code oppositeEdge}.
      */
     private Point computeSplitPoint(Segment oppositeEdge) {
         assert isReflex;
@@ -463,7 +499,7 @@ abstract class Node implements Iterable<Node> {
     ) {
         return oldSplitPoint == null
             || PointTransformationsKt.distanceTo(vertex, oldSplitPoint) >
-            PointTransformationsKt.distanceTo( vertex, newSplitPoint );
+            PointTransformationsKt.distanceTo(vertex, newSplitPoint);
 
     }
 
@@ -495,44 +531,21 @@ abstract class Node implements Iterable<Node> {
     /**
      * [Obdrzalek 1998, paragraph 2.2, Figure 4]
      * <p>
-     * Checks if a point (namely point B coming from a reflex vertex) is located in an area bounded by an edge and
-     * bisectors coming from start and end nodes of this edge.
+     * Checks if a point (namely point B coming from a reflex vertex) is located
+     * in an area bounded by an edge and bisectors coming from start and end
+     * nodes of this edge.
      * @param point The point to test.
-     * @return true if the point is located within the area marked by an edge and edge's bisectors, false otherwise.
+     * @return true if the point is located within the area marked by an edge
+     * and edge's bisectors, false otherwise.
      */
     private boolean isPointInAreaBetweenEdgeAndItsBisectors(Point point) {
         Point a = bisector.getEnd();
         Point b = this.currentEdge.getStart();
         Point c = this.currentEdge.getEnd();
         Point d = next().bisector.getEnd();
-        return isPointNonConvex(a, point, b) && isPointNonConvex(b, point, c) && isPointNonConvex(c, point, d);
-    }
-
-    /**
-     * Given 3 counter-clockwise points of a polygon, check if the middle one is convex or reflex.
-     * @param previous Beginning of vector 1.
-     * @param point End of vector 1 and beginning of vector 2.
-     * @param next End of vector 2.
-     * @return true if {@code point} is non-convex, false if it is convex.
-     */
-    private static boolean isPointNonConvex(
-        Point previous,
-        Point point,
-        Point next
-    ) {
-        //  TODO: There is similar method isReflex; remove this method.
-        return perpDotProduct(
-            new double[]{point.getX() - previous.getX(), point.getY() - previous.getY()},
-            new double[]{next.getX() - point.getX(), next.getY() - point.getY()}
-        ) >= 0;
-    }
-
-    // TODO: Refactor this to use Vectors instead of arrays
-    private static double perpDotProduct(double[] a, double[] b) {
-        return VectorOperationsKt.dotPerp(
-            new Vector(a[0], a[1]),
-            new Vector(b[0], b[1])
-        );
+        return isPointNonConvex(a, point, b)
+            && isPointNonConvex(b, point, c)
+            && isPointNonConvex(c, point, d);
     }
 
     void eliminate2NodeLav(Node neighbor) {

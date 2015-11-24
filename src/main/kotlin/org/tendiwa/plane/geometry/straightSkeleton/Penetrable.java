@@ -5,9 +5,12 @@ import org.tendiwa.geometry.points.Point;
 import org.tendiwa.geometry.segments.Segment;
 
 interface Penetrable {
-	void add(Point poll, Point poll1);
+    void add(Point poll, Point poll1);
 
-	Optional<Point> obtainIntersectionPoint(Segment intersected, Segment intersecting);
+    Optional<Point> obtainIntersectionPoint(
+        Segment intersected,
+        Segment intersecting
+    );
 
-	double depth();
+    double depth();
 }

@@ -17,11 +17,11 @@ import org.tendiwa.plane.geometry.graphs.constructors.Graph2DConstructorsKt;
 import org.tenidwa.collections.utils.Collectors;
 
 public final class StraightSkeleton {
+    private static int skeletonNumber = 0;
+    final Debug debug = new Debug();
     private final InitialListOfActiveVertices initialLav;
     private final PriorityQueue<SkeletonEvent> queue;
     private final Multimap<Point, Point> arcs = HashMultimap.create();
-    final Debug debug = new Debug();
-    private static int skeletonNumber = 0;
     private final Polygon polygon;
     private int hash = skeletonNumber++;
 
@@ -29,14 +29,9 @@ public final class StraightSkeleton {
         this(polygon, false);
     }
 
-    @Override
-    public int hashCode() {
-        return hash;
-    }
-
     private StraightSkeleton(Polygon polygon, boolean trustCounterClockwise) {
         this.polygon = EdgePerturbationsKt.getParallelAndPerpendicularEdgesDeflected(
-          polygon
+            polygon
         );
 //		Utils.printListOfPoints(vertices);
 
@@ -60,6 +55,10 @@ public final class StraightSkeleton {
         assert !arcs.isEmpty();
     }
 
+    @Override
+    public int hashCode() {
+        return hash;
+    }
 
     /**
      * Makes a {@link Node} produce a {@link SkeletonEvent} and adds that event

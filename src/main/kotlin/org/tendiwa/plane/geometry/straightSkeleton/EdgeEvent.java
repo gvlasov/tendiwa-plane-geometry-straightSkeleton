@@ -8,7 +8,8 @@ final class EdgeEvent extends SkeletonEvent {
     /**
      * <i>v<sub>b</sub></i> in [Obdrzalek 1998]
      * <p>
-     * {@code rightParent == null} means it is a split event, otherwise it is an edge event
+     * {@code rightParent == null} means it is a split event, otherwise it is an
+     * edge event
      */
     private final Node rightParent;
     private final Node leftParent;

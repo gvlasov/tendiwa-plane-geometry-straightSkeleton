@@ -102,8 +102,8 @@ final class ShrinkedFront implements Penetrable {
     }
 
     /**
-     * Returns the existing {@link org.tendiwa.collections.DoublyLinkedNode} for a {@link Point} if one exists, or
-     * creates a new one.
+     * Returns the existing {@link DoublyLinkedNode} for a {@link Point} if one
+     * exists, or creates a new one.
      * @param point A point that is payload for a node.
      * @return A node with {@code point} as payload.
      */

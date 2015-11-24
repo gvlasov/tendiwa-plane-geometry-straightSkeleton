@@ -1,7 +1,7 @@
 package org.tendiwa.plane.geometry.straightSkeleton;
 
 import com.google.common.collect.Multimap;
-import java.awt.*;
+import java.awt.Color;
 import org.tendiwa.canvas.algorithms.geometry.DrawingBillboardKt;
 import org.tendiwa.canvas.api.Canvas;
 import org.tendiwa.canvas.awt.AwtCanvas;
@@ -15,6 +15,7 @@ final class Debug {
     private final boolean debug = true;
     public final static Canvas canvas =
         new AwtCanvas(GridDimensionConstructorsKt.by(400, 400), 1);
+//        new NullCanvas();
 
     Debug() {
     }

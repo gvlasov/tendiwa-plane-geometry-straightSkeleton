@@ -29,6 +29,10 @@ final class FacePenetration implements Iterator<Point> {
             .map(Optional::get)
             .forEach(queue::add);
 
+        validateSize(face, intruded);
+    }
+
+    private void validateSize(StraightSkeletonFace face, Segment intruded) {
         boolean ok = queue.size() % 2 == 0;
         if (!ok) {
             final AwtCanvas canvas =
@@ -43,6 +47,7 @@ final class FacePenetration implements Iterator<Point> {
         assert ok : queue.size();
     }
 
+    // TODO: Make this an extension method of StraightSkeletonFace
     private Segment intrudeFaceFront(StraightSkeletonFace face, double depth) {
 //		TestCanvas.canvas.draw(new Segment(face.get(0), face.get(face.size() - 1)), DrawingSegment.withColorThin(Color
 //			.magenta));

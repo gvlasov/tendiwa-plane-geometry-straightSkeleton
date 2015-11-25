@@ -1,10 +1,7 @@
 package org.tendiwa.plane.geometry.straightSkeleton
 
 import org.junit.Test
-import org.tendiwa.geometry.vectors.HorizontalVector
-import org.tendiwa.geometry.vectors.VerticalVector
-import org.tendiwa.geometry.vectors.plus
-import org.tendiwa.geometry.vectors.unaryMinus
+import org.tendiwa.geometry.vectors.*
 import kotlin.test.assertEquals
 
 class VectorSectorTest {
@@ -13,7 +10,7 @@ class VectorSectorTest {
         val ccw = HorizontalVector(10.0)
         assertEquals(
             VectorSector(cw, ccw).bisector,
-            ccw + cw
+            (ccw + cw).normalized * 10.0
         )
     }
 
@@ -22,7 +19,7 @@ class VectorSectorTest {
         val ccw = VerticalVector(10.0)
         assertEquals(
             VectorSector(cw, ccw).sumVector,
-            -(cw + ccw)
+            (cw + ccw).normalized * 10.0
         )
     }
 }

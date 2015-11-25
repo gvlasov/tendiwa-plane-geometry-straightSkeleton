@@ -8,7 +8,7 @@ internal class VectorSector(cw: Vector, ccw: Vector) {
     val sumVector: Vector
 
     val bisector: Vector
-        get() = if (isReflex) sumVector.reverse() else sumVector
+        get() = if (isReflex) sumVector.reversed else sumVector
 
     init {
         if (cw.isZero) {
@@ -21,11 +21,11 @@ internal class VectorSector(cw: Vector, ccw: Vector) {
                 "Trying to compute bisector when one of the vectors is 0"
             );
         }
-        var bisectorDirection = cw.normalize() + ccw.normalize();
+        var bisectorDirection = cw.normalized + ccw.normalized;
         if (bisectorDirection.isZero) {
-            bisectorDirection = ccw.rotateQuarterClockwise();
+            bisectorDirection = ccw.rotatedQuarterClockwise;
         }
-        sumVector = bisectorDirection.normalize() * averageMagnitude(cw, ccw)
+        sumVector = bisectorDirection.normalized * averageMagnitude(cw, ccw)
         isReflex = ccw.makesReflexAngle(cw);
     }
 

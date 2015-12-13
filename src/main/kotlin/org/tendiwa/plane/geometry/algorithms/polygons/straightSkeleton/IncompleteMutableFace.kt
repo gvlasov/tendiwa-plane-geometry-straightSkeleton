@@ -1,9 +1,6 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
-import org.tendiwa.canvas.algorithms.geometry.drawArrow
 import org.tendiwa.plane.geometry.points.Point
-import org.tendiwa.plane.geometry.polygons.Polygon
-import java.awt.Color
 import java.util.*
 
 internal class IncompleteMutableFace(
@@ -95,21 +92,7 @@ internal class IncompleteMutableFace(
             points.add(node.vertex)
             previousPayload = node.vertex
         }
-
-        assertPolygonCorrectness(points)
         return StraightSkeletonFace(points)
-    }
-
-    private fun assertPolygonCorrectness(points: List<Point>) {
-        assert(points[0] != points[points.size - 1])
-        // TODO: Remove this check
-        if (JTSUtils.isYDownCCW(points)) {
-            Polygon(points).segments
-                .forEach { it ->
-                    Debug.canvas.drawArrow(it, Color.white, 1.0)
-                }
-            assert(false)
-        }
     }
 
     override val isClosed: Boolean

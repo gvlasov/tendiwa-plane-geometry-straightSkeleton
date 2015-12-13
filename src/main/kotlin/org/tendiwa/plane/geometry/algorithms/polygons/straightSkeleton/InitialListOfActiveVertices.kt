@@ -6,6 +6,8 @@ import org.tendiwa.collections.loopedTriLinks
 import org.tendiwa.plane.geometry.bends.Bend
 import org.tendiwa.plane.geometry.bends.isStraight
 import org.tendiwa.plane.geometry.points.Point
+import org.tendiwa.plane.geometry.polygons.Polygon
+import org.tendiwa.plane.geometry.polygons.isClockwise
 import org.tendiwa.plane.geometry.segments.Segment
 import java.util.*
 
@@ -15,10 +17,10 @@ import java.util.*
  */
 internal class InitialListOfActiveVertices
 /**
- * @param vertices List of points going counter-clockwise.
+ * @param polygon Counter-clockwise polygon.
  */
 (
-    vertices: List<Point>,
+    polygon: Polygon,
     trustCounterClockwise: Boolean
 ) {
     val nodes: MutableList<OriginalEdgeStart> = ArrayList()
@@ -26,8 +28,8 @@ internal class InitialListOfActiveVertices
     private val size: Int
 
     init {
-        var vertices = vertices
-        if (!trustCounterClockwise && !JTSUtils.isYDownCCW(vertices)) {
+        var vertices = polygon.points
+        if (!trustCounterClockwise && polygon.isClockwise()) {
             vertices = Lists.reverse(vertices)
         }
         vertices = filterExtraVertices(vertices)

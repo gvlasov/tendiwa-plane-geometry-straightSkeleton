@@ -29,8 +29,9 @@ class StraightSkeleton private constructor(
         //		Utils.printListOfPoints(vertices);
 
         this.initialLav = InitialListOfActiveVertices(
-            this.polygon.points,
-            trustCounterClockwise)
+            this.polygon,
+            trustCounterClockwise
+        )
         this.queue = PriorityQueue<SkeletonEvent>(initialLav.size())
 
         // [Obdrzalek 1998, paragraph 2.2, algorithm step 1c]

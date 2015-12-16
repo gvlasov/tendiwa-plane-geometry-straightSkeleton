@@ -7,7 +7,6 @@ import org.tendiwa.plane.geometry.bends.Bend
 import org.tendiwa.plane.geometry.bends.isStraight
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.polygons.Polygon
-import org.tendiwa.plane.geometry.polygons.isClockwise
 import org.tendiwa.plane.geometry.segments.Segment
 import java.util.*
 

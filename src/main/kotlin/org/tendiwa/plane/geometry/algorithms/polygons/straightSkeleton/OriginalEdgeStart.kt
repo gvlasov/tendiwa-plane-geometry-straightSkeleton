@@ -1,7 +1,7 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
 
-import org.tendiwa.plane.geometry.algorithms.intersections.RayIntersection
+import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.algorithms.predicates.isLeftOf
 import org.tendiwa.plane.geometry.segments.Segment
 import org.tenidwa.collections.utils.SuccessiveTuples

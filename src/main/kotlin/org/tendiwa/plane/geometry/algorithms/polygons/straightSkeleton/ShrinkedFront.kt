@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableSet
 import org.tendiwa.canvas.algorithms.geometry.drawArrow
 import org.tendiwa.collections.DoublyLinkedNode
 import org.tendiwa.math.constants.EPSILON
-import org.tendiwa.plane.geometry.algorithms.intersections.RayIntersection
+import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.polygons.Polygon
 import org.tendiwa.plane.geometry.segments.Segment

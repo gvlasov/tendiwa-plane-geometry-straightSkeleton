@@ -3,7 +3,7 @@ package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 import com.google.common.collect.Iterators
 import org.tendiwa.canvas.algorithms.geometry.drawArrow
 import org.tendiwa.math.constants.EPSILON
-import org.tendiwa.plane.geometry.algorithms.intersections.RayIntersection
+import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.circles.Circle
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.points.distanceTo

@@ -1,5 +1,9 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
+import org.tendiwa.math.angles.Angle
+import org.tendiwa.math.angles.cos
+import org.tendiwa.math.angles.sin
+import org.tendiwa.math.angles.times
 import org.tendiwa.math.doubles.isNegativeZero
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.polygons.Polygon
@@ -70,9 +74,9 @@ private fun Polygon.perturb(random: Random): Polygon {
 val SHIFT = 1e-4
 
 private fun Point.shiftRandomly(random: Random): Point {
-    val angle = Math.PI * 2 * random.nextDouble()
+    val angle = Angle.FULL_CIRCLE * random.nextDouble()
     return Point(
-        this.x + SHIFT * Math.cos(angle),
-        this.y + SHIFT * Math.sin(angle)
+        x + SHIFT * angle.cos,
+        y + SHIFT * angle.sin
     )
 }

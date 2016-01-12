@@ -44,7 +44,6 @@ internal class Debug {
             .areIntersected()
         ) {
             drawIntersectingArc(start, end)
-            println(start)
             assert(false)
         }
     }

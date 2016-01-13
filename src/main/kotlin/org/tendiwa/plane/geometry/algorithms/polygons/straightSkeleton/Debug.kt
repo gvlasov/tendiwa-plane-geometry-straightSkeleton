@@ -4,9 +4,9 @@ import com.google.common.collect.Multimap
 import org.tendiwa.canvas.algorithms.geometry.drawBillboard
 import org.tendiwa.canvas.api.Canvas
 import org.tendiwa.canvas.implementations.NullCanvas
-import org.tendiwa.plane.geometry.algorithms.intersections.areIntersected
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.segments.Segment
+import org.tendiwa.plane.geometry.segments.areIntersected
 import java.awt.Color
 
 internal class Debug {

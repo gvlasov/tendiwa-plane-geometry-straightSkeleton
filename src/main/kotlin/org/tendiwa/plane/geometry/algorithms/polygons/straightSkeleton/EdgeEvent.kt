@@ -1,8 +1,8 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
 
-import org.tendiwa.plane.geometry.algorithms.distances.distanceToLine
 import org.tendiwa.plane.geometry.points.Point
+import org.tendiwa.plane.geometry.points.distanceToLine
 
 internal class EdgeEvent(
     point: Point,

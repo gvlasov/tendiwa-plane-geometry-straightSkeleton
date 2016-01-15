@@ -1,6 +1,6 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
-import org.tendiwa.math.angles.Angle
+import org.tendiwa.math.angles.AngularMeasure
 import org.tendiwa.math.angles.cos
 import org.tendiwa.math.angles.sin
 import org.tendiwa.math.angles.times
@@ -74,7 +74,7 @@ private fun Polygon.perturb(random: Random): Polygon {
 val SHIFT = 1e-4
 
 private fun Point.shiftRandomly(random: Random): Point {
-    val angle = Angle.FULL_CIRCLE * random.nextDouble()
+    val angle = AngularMeasure.FULL_CIRCLE * random.nextDouble()
     return Point(
         x + SHIFT * angle.cos,
         y + SHIFT * angle.sin

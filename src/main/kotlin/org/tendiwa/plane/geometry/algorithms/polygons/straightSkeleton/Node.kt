@@ -3,11 +3,11 @@ package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 import com.google.common.collect.Iterators
 import org.tendiwa.canvas.algorithms.geometry.drawArrow
 import org.tendiwa.math.constants.EPSILON
-import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.circles.Circle
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.points.distanceTo
 import org.tendiwa.plane.geometry.points.radiusVector
+import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.segments.Segment
 import org.tendiwa.plane.geometry.segments.isParallel
 import org.tendiwa.plane.geometry.segments.reverse
@@ -175,7 +175,8 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
             previous!!.vertex,
             vertex,
             vertex,
-            next!!.vertex)
+            next!!.vertex
+        )
         val bisector1 = VectorSector(
             currentEdgeStart!!.currentEdge().vector,
             previousEdgeStart!!.currentEdge().vector.unaryMinus()

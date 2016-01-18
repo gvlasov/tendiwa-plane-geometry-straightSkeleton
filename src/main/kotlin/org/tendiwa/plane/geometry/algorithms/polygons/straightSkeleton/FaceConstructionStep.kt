@@ -1,6 +1,6 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
-import org.tendiwa.collections.DoublyLinkedNode
+import org.tendiwa.collections.MutableDoublyLinkedNode
 
 
 internal class FaceConstructionStep(
@@ -159,14 +159,14 @@ internal class FaceConstructionStep(
         face.increaseNumberOfSkeletonNodes(1)
         if (isFirst) {
             face.forgetNodeProjection(chain.firstFaceNode().payload)
-            val newFirst = DoublyLinkedNode(end)
+            val newFirst = MutableDoublyLinkedNode(end)
             val first = chain.firstFaceNode()
             first.connectWithPrevious(newFirst)
             newFirst.connectWithNext(first)
             chain.moveFirstFaceNode(newFirst)
         } else {
             face.forgetNodeProjection(chain.lastFaceNode().payload)
-            val newLast = DoublyLinkedNode(end)
+            val newLast = MutableDoublyLinkedNode(end)
             val last = chain.lastFaceNode()
             last.connectWithNext(newLast)
             newLast.connectWithPrevious(last)

@@ -4,7 +4,7 @@ import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableSet
 import org.tendiwa.canvas.algorithms.geometry.drawArrow
-import org.tendiwa.collections.DoublyLinkedNode
+import org.tendiwa.collections.MutableDoublyLinkedNode
 import org.tendiwa.math.constants.EPSILON
 import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.points.Point
@@ -22,14 +22,14 @@ internal class ShrinkedFront
  * @param depth How much to intrude the polygon.
  */
 (faces: Collection<StraightSkeletonFace>, private val depth: Double) : Penetrable {
-    private val pointsToNodes: LinkedHashMap<Point, DoublyLinkedNode<Point>>
+    private val pointsToNodes: LinkedHashMap<Point, MutableDoublyLinkedNode<Point>>
     private val intersectionsOnSegments: BiMap<Point, Segment>
 
     init {
         assert(depth > EPSILON)
         // Minimum possible number of points on a front is faces.size(), so we pick a value twice as big. That should
         // be enough for most cases and not too much.
-        this.pointsToNodes = LinkedHashMap<Point, DoublyLinkedNode<Point>>(faces.size * 2)
+        this.pointsToNodes = LinkedHashMap<Point, MutableDoublyLinkedNode<Point>>(faces.size * 2)
         this.intersectionsOnSegments = HashBiMap.create<Point, Segment>()
         faces
             .map({ face -> FacePenetration(face, this) })
@@ -87,17 +87,17 @@ internal class ShrinkedFront
     }
 
     /**
-     * Returns the existing [DoublyLinkedNode] for a [Point] if one
+     * Returns the existing [MutableDoublyLinkedNode] for a [Point] if one
      * exists, or creates a new one.
      * @param point A point that is payload for a node.
      * *
      * @return A node with `point` as payload.
      */
-    private fun obtainNode(point: Point): DoublyLinkedNode<Point> {
+    private fun obtainNode(point: Point): MutableDoublyLinkedNode<Point> {
         if (pointsToNodes.containsKey(point)) {
             return pointsToNodes[point]!!
         } else {
-            val newNode = DoublyLinkedNode(point)
+            val newNode = MutableDoublyLinkedNode(point)
             pointsToNodes.put(point, newNode)
             return newNode
         }

@@ -1,6 +1,6 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
-import org.tendiwa.collections.DoublyLinkedNode
+import org.tendiwa.collections.MutableDoublyLinkedNode
 
 
 /**
@@ -8,34 +8,34 @@ import org.tendiwa.collections.DoublyLinkedNode
  */
 internal class Chain(oneEnd: Node, last: Node, var previousChain: Chain?) {
     var nextChain: Chain? = null
-    private var first: DoublyLinkedNode<Node>? = null
-    private var last: DoublyLinkedNode<Node>? = null
+    private var first: MutableDoublyLinkedNode<Node>? = null
+    private var last: MutableDoublyLinkedNode<Node>? = null
 
     init {
         if (oneEnd === last) {
-            this.first = DoublyLinkedNode(oneEnd)
+            this.first = MutableDoublyLinkedNode(oneEnd)
             this.last = this.first
         } else {
-            this.first = DoublyLinkedNode(oneEnd)
-            this.last = DoublyLinkedNode(last)
+            this.first = MutableDoublyLinkedNode(oneEnd)
+            this.last = MutableDoublyLinkedNode(last)
             this.first!!.connectWithNext(this.last!!)
             this.last!!.connectWithPrevious(this.first!!)
         }
     }
 
-    fun firstFaceNode(): DoublyLinkedNode<Node> {
+    fun firstFaceNode(): MutableDoublyLinkedNode<Node> {
         return first!!
     }
 
-    fun lastFaceNode(): DoublyLinkedNode<Node> {
+    fun lastFaceNode(): MutableDoublyLinkedNode<Node> {
         return last!!
     }
 
-    fun moveFirstFaceNode(newFirst: DoublyLinkedNode<Node>) {
+    fun moveFirstFaceNode(newFirst: MutableDoublyLinkedNode<Node>) {
         first = newFirst
     }
 
-    fun moveLastFaceNode(newLast: DoublyLinkedNode<Node>) {
+    fun moveLastFaceNode(newLast: MutableDoublyLinkedNode<Node>) {
         last = newLast
     }
 

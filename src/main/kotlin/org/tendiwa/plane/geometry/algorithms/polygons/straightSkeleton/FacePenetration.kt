@@ -18,7 +18,7 @@ internal class FacePenetration(face: StraightSkeletonFace, front: Penetrable) : 
     init {
         //		TestCanvas.canvas.draw(faceFront(face), DrawingSegment.withColorDirected(Color.cyan, 1));
         this.queue = PriorityQueue<Point>(::comparePointsLinewise)
-        val intruded = intrudeFaceFront(face, front.depth())
+        val intruded = face.intrudeFront(front.depth())
         face.polygon.segments
             .map({ segment -> front.obtainIntersectionPoint(segment, intruded) })
             .filter({ it.isPresent })
@@ -41,12 +41,6 @@ internal class FacePenetration(face: StraightSkeletonFace, front: Penetrable) : 
         assert(ok) { queue.size }
     }
 
-    // TODO: Make this an extension method of StraightSkeletonFace
-    private fun intrudeFaceFront(face: StraightSkeletonFace, depth: Double): Segment {
-        //		TestCanvas.canvas.draw(new Segment(face.get(0), face.get(face.size() - 1)), DrawingSegment.withColorThin(Color
-        //			.magenta));
-        return face.front.parallel(depth, true)
-    }
 
     override fun hasNext(): Boolean {
         return !queue.isEmpty()
@@ -56,3 +50,6 @@ internal class FacePenetration(face: StraightSkeletonFace, front: Penetrable) : 
         return queue.poll()
     }
 }
+
+private fun StraightSkeletonFace.intrudeFront(depth: Double): Segment =
+    front.parallel(depth, true)

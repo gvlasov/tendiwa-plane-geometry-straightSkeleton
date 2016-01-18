@@ -32,7 +32,7 @@ class StraightSkeleton private constructor(
             this.polygon,
             trustCounterClockwise
         )
-        this.queue = PriorityQueue<SkeletonEvent>(initialLav.size())
+        this.queue = PriorityQueue<SkeletonEvent>(initialLav.size)
 
         // [Obdrzalek 1998, paragraph 2.2, algorithm step 1c]
         initialLav.nodes.forEach({ this.queueEventFromNode(it) })

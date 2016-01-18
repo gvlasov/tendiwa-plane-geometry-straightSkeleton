@@ -24,7 +24,7 @@ internal class InitialListOfActiveVertices
 ) {
     val nodes: MutableList<OriginalEdgeStart> = ArrayList()
     val edges: List<Segment>
-    private val size: Int
+    val size: Int
 
     init {
         var vertices = polygon.points
@@ -36,13 +36,7 @@ internal class InitialListOfActiveVertices
         assert(vertices.size == edges.size)
         createAndConnectNodes(edges)
         nodes.forEach({ it.computeReflexAndBisector() })
-        this.size = edges.size
-    }
-
-
-    // TODO: Remove this method, use field size instead
-    fun size(): Int {
-        return size
+        size = edges.size
     }
 
     private fun createAndConnectNodes(edges: List<Segment>) {

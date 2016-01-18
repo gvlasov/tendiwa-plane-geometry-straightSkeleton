@@ -143,23 +143,17 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
             "${this.javaClass.name} can't have a pair; only SplitNode can"
         )
 
-    operator fun next(): Node {
-        assert(next != null)
-        return next!!
-    }
+    operator fun next(): Node =
+        next!!
 
-    fun previous(): Node {
-        assert(previous != null)
-        return previous!!
-    }
+    fun previous(): Node =
+        previous!!
 
-    fun previousEdge(): Segment {
-        return previousEdgeStart!!.currentEdge!!
-    }
+    fun previousEdge(): Segment =
+        previousEdgeStart!!.currentEdge!!
 
-    fun currentEdge(): Segment {
-        return currentEdgeStart!!.currentEdge!!
-    }
+    fun currentEdge(): Segment =
+        currentEdgeStart!!.currentEdge!!
 
     /**
      * Remembers that this point is processed, that is, it is not a part of some LAV anymore.
@@ -302,9 +296,8 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
      * * [SplitEvent], false
      * * otherwise.
      */
-    open fun isPair(node: Node): Boolean {
-        return false
-    }
+    open fun isPair(node: Node): Boolean =
+        false
 
     fun computeNearerBisectorsIntersection(): SkeletonEvent? {
         // Non-convex 1c
@@ -364,9 +357,8 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
         return vertex.distanceTo(splitEvent.point) < vertex.distanceTo(shrinkPoint)
     }
 
-    private fun bisectorsIntersection(node: Node): RayIntersection {
-        return RayIntersection(bisector!!, node.bisector!!)
-    }
+    private fun bisectorsIntersection(node: Node): RayIntersection =
+        RayIntersection(bisector!!, node.bisector!!)
 
     /**
      * [Obdrzalek 1998, paragraph 2.2, figure 4]
@@ -438,42 +430,50 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
         return intersection.commonPoint()
     }
 
-    private fun nodeIsAppropriate(node: Node): Boolean {
-        return !(nodeIsNeighbor(node) || intersectionIsBehindReflexNode(node) || previousEdgeIntersectsInFrontOfOppositeEdge(node) || currentEdgeIntersectsInFrontOfOppositeEdge(node)// TODO: If the previous condition is unnecessary, then this condition is unnecessary too.
+    private fun nodeIsAppropriate(node: Node): Boolean =
+        // TODO: If the previous condition is unnecessary, then this condition is unnecessary too.
+        !(
+            nodeIsNeighbor(node)
+                || intersectionIsBehindReflexNode(node)
+                || previousEdgeIntersectsInFrontOfOppositeEdge(node)
+                || currentEdgeIntersectsInFrontOfOppositeEdge(node)
             )
-    }
 
     private fun newSplitPointIsBetter(
         oldSplitPoint: Point?,
-        newSplitPoint: Point): Boolean {
-        return oldSplitPoint == null || vertex.distanceTo(oldSplitPoint) > vertex.distanceTo(newSplitPoint)
+        newSplitPoint: Point
+    ): Boolean =
+        oldSplitPoint == null
+            || vertex.distanceTo(oldSplitPoint) > vertex.distanceTo(newSplitPoint)
 
-    }
+    private fun nodeIsNeighbor(node: Node): Boolean =
+        node === this
+            || node === previous()
+            || node === next()
 
-    private fun nodeIsNeighbor(node: Node): Boolean {
-        return node === this || node === previous() || node === next()
-    }
-
-    private fun currentEdgeIntersectsInFrontOfOppositeEdge(oppositeEdgeStartCandidate: Node): Boolean {
-        return RayIntersection(
+    private fun currentEdgeIntersectsInFrontOfOppositeEdge(
+        oppositeEdgeStartCandidate: Node
+    ): Boolean =
+        RayIntersection(
             currentEdge!!.reverse,
             oppositeEdgeStartCandidate.currentEdge!!
         ).r <= 1
-    }
 
-    private fun previousEdgeIntersectsInFrontOfOppositeEdge(oppositeEdgeStartCandidate: Node): Boolean {
-        return RayIntersection(
+    private fun previousEdgeIntersectsInFrontOfOppositeEdge(
+        oppositeEdgeStartCandidate: Node
+    ): Boolean =
+        RayIntersection(
             previousEdge(),
             oppositeEdgeStartCandidate.currentEdge!!
         ).r <= 1
-    }
 
-    private fun intersectionIsBehindReflexNode(anotherRay: Node): Boolean {
-        return RayIntersection(
+    private fun intersectionIsBehindReflexNode(
+        anotherRay: Node
+    ): Boolean =
+        RayIntersection(
             bisector!!,
             anotherRay.currentEdge!!
         ).r <= EPSILON
-    }
 
     /**
      * [Obdrzalek 1998, paragraph 2.2, Figure 4]

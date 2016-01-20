@@ -1,9 +1,9 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
 import org.junit.Test
+import org.tendiwa.plane.geometry.points.Point
+import org.tendiwa.plane.geometry.polygons.Polygon
 import org.tendiwa.plane.geometry.rectangles.Rectangle
-import org.tendiwa.plane.geometry.trails.Trail
-import org.tendiwa.plane.geometry.trails.polygon
 import kotlin.test.assertEquals
 
 class StraightSkeletonTest {
@@ -11,10 +11,13 @@ class StraightSkeletonTest {
         assertEquals(
             3,
             StraightSkeleton(
-                Trail(0.0, 0.0).apply {
-                    move(10.0, 0.0)
-                    move(10.0, 10.0)
-                }.polygon
+                Polygon(
+                    Point(0.0, 0.0),
+                    {
+                        move(10.0, 0.0)
+                        move(10.0, 10.0)
+                    }
+                )
             ).graph().edgeSet().size
         )
     }

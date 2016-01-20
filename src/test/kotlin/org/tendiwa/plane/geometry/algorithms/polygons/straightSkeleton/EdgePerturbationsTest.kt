@@ -3,14 +3,13 @@ package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 import org.junit.Test
 import org.tendiwa.plane.directions.CardinalDirection.E
 import org.tendiwa.plane.directions.CardinalDirection.S
-import org.tendiwa.plane.directions.OrdinalDirection.NE
-import org.tendiwa.plane.directions.OrdinalDirection.SW
+import org.tendiwa.plane.directions.OrdinalDirection.*
 import org.tendiwa.plane.geometry.dimensions.area
 import org.tendiwa.plane.geometry.dimensions.by
 import org.tendiwa.plane.geometry.points.AnyPoint
+import org.tendiwa.plane.geometry.polygons.Polygon
 import org.tendiwa.plane.geometry.rectangles.Rectangle
 import org.tendiwa.plane.geometry.rectangles.size
-import org.tendiwa.plane.geometry.trails.Polygon
 import org.tendiwa.plane.geometry.trails.moveTo
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals

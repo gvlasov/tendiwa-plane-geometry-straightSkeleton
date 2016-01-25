@@ -60,10 +60,10 @@ internal class ShrinkedFront
     override fun obtainIntersectionPoint(
         inner: Segment,
         intruded: Segment
-    ): Optional<Point> {
+    ): Point? {
         val reverse = inner.reverse
         if (intersectionsOnSegments.containsValue(reverse)) {
-            return Optional.of(getExistingIntersectionPoint(reverse))
+            return getExistingIntersectionPoint(reverse)
         } else {
             if (intersectionsOnSegments.containsValue(inner)) {
                 Debug.canvas.drawArrow(
@@ -77,10 +77,10 @@ internal class ShrinkedFront
             if (intersection.r > 0 && intersection.r < 1) {
                 val intersectionPoint = RayIntersection(intruded, inner).commonPoint()
                 intersectionsOnSegments.put(intersectionPoint, inner)
-                return Optional.of(intersectionPoint)
+                return intersectionPoint
             }
         }
-        return Optional.empty<Point>()
+        return null
     }
 
     override fun depth(): Double {

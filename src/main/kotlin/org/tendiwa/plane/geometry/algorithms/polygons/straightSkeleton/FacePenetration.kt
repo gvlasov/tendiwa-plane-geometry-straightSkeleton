@@ -21,8 +21,7 @@ internal class FacePenetration(face: StraightSkeletonFace, front: Penetrable) : 
         val intruded = face.intrudeFront(front.depth())
         face.polygon.segments
             .map({ segment -> front.obtainIntersectionPoint(segment, intruded) })
-            .filter({ it.isPresent })
-            .map({ it.get() })
+            .filterNotNull()
             .forEach({ queue.add(it) })
 
         validateSize(face, intruded)

@@ -11,5 +11,5 @@ internal interface Penetrable {
         intersecting: Segment
     ): Point?
 
-    fun depth(): Double
+    val depth: Double
 }

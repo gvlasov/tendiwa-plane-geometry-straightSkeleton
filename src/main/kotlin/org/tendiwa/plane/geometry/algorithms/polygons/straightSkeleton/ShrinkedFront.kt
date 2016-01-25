@@ -23,7 +23,7 @@ internal class ShrinkedFront
  */
 (
     faces: Collection<StraightSkeletonFace>,
-    private val depth: Double
+    override val depth: Double
 ) : Penetrable {
     private val pointsToNodes: LinkedHashMap<Point, MutableDoublyLinkedNode<Point>>
     private val intersectionsOnSegments: BiMap<Point, Segment>
@@ -81,10 +81,6 @@ internal class ShrinkedFront
             }
         }
         return null
-    }
-
-    override fun depth(): Double {
-        return depth
     }
 
     private fun getExistingIntersectionPoint(reverse: Segment): Point {

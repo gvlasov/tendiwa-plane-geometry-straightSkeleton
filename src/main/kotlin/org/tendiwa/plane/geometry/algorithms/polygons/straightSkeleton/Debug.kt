@@ -3,10 +3,11 @@ package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 import com.google.common.collect.Multimap
 import org.tendiwa.canvas.algorithms.geometry.drawBillboard
 import org.tendiwa.canvas.api.Canvas
-import org.tendiwa.canvas.implementations.NullCanvas
+import org.tendiwa.canvas.awt.AwtCanvas
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.segments.Segment
 import org.tendiwa.plane.geometry.segments.areIntersected
+import org.tendiwa.plane.grid.dimensions.by
 import java.awt.Color
 
 internal class Debug {
@@ -67,13 +68,16 @@ internal class Debug {
         if (!debug) return
         canvas.draw(
             Segment(point.leftParent().vertex, point.point),
-            Color.cyan)
+            Color.cyan
+        )
         canvas.draw(
             Segment(point.rightParent().vertex, point.point),
-            Color.cyan)
+            Color.cyan
+        )
         canvas.draw(
             Segment(point.leftParent().previous().vertex, point.point),
-            Color.cyan)
+            Color.cyan
+        )
     }
 
     fun draw2NodeLavArc(node1: Node, node2: Node) {
@@ -85,7 +89,7 @@ internal class Debug {
 
     companion object {
         val canvas: Canvas =
-            NullCanvas()
-        // AwtCanvas(400.by(400), 1)
+//            NullCanvas()
+            AwtCanvas(400.by(400), 1)
     }
 }

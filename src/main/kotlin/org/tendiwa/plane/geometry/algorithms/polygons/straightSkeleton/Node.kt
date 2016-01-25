@@ -92,12 +92,12 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
         previous: Point,
         point: Point,
         next: Point
-    ): Boolean {
-        //  TODO: There is similar method isReflex; remove this method.
-        return perpDotProduct(
+    ): Boolean =
+        // TODO: There is similar method isReflex; remove this method.
+        perpDotProduct(
             doubleArrayOf(point.x - previous.x, point.y - previous.y),
-            doubleArrayOf(next.x - point.x, next.y - point.y)) >= 0
-    }
+            doubleArrayOf(next.x - point.x, next.y - point.y)
+        ) >= 0
 
     // TODO: Refactor this to use Vectors instead of arrays
     private fun perpDotProduct(a: DoubleArray, b: DoubleArray): Double =

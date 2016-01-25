@@ -6,9 +6,9 @@ import com.google.common.collect.ImmutableSet
 import org.tendiwa.canvas.algorithms.geometry.drawArrow
 import org.tendiwa.collections.MutableDoublyLinkedNode
 import org.tendiwa.math.constants.EPSILON
-import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.polygons.Polygon
+import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.segments.Segment
 import org.tendiwa.plane.geometry.segments.reverse
 import java.awt.Color
@@ -21,15 +21,19 @@ internal class ShrinkedFront
  * of the compound polygon.
  * @param depth How much to intrude the polygon.
  */
-(faces: Collection<StraightSkeletonFace>, private val depth: Double) : Penetrable {
+(
+    faces: Collection<StraightSkeletonFace>,
+    private val depth: Double
+) : Penetrable {
     private val pointsToNodes: LinkedHashMap<Point, MutableDoublyLinkedNode<Point>>
     private val intersectionsOnSegments: BiMap<Point, Segment>
 
     init {
         assert(depth > EPSILON)
-        // Minimum possible number of points on a front is faces.size(), so we pick a value twice as big. That should
-        // be enough for most cases and not too much.
-        this.pointsToNodes = LinkedHashMap<Point, MutableDoublyLinkedNode<Point>>(faces.size * 2)
+        // Minimum possible number of points on a front is faces.size(),
+        // so we pick a value twice as big. That should be enough for most cases
+        // and not too much.
+        this.pointsToNodes = LinkedHashMap(faces.size * 2)
         this.intersectionsOnSegments = HashBiMap.create<Point, Segment>()
         faces
             .map({ face -> FacePenetration(face, this) })
@@ -55,7 +59,8 @@ internal class ShrinkedFront
 
     override fun obtainIntersectionPoint(
         inner: Segment,
-        intruded: Segment): Optional<Point> {
+        intruded: Segment
+    ): Optional<Point> {
         val reverse = inner.reverse
         if (intersectionsOnSegments.containsValue(reverse)) {
             return Optional.of(getExistingIntersectionPoint(reverse))

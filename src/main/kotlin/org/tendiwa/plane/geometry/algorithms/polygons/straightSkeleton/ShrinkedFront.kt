@@ -83,15 +83,13 @@ internal class ShrinkedFront
         return null
     }
 
-    private fun getExistingIntersectionPoint(reverse: Segment): Point {
-        return intersectionsOnSegments.inverse()[reverse]!!
-    }
+    private fun getExistingIntersectionPoint(reverse: Segment): Point =
+        intersectionsOnSegments.inverse()[reverse]!!
 
     /**
      * Returns the existing [MutableDoublyLinkedNode] for a [Point] if one
      * exists, or creates a new one.
      * @param point A point that is payload for a node.
-     * *
      * @return A node with `point` as payload.
      */
     private fun obtainNode(point: Point): MutableDoublyLinkedNode<Point> {

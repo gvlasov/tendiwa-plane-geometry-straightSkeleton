@@ -7,6 +7,7 @@ import org.tendiwa.plane.geometry.circles.Circle
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.points.distanceTo
 import org.tendiwa.plane.geometry.points.radiusVector
+import org.tendiwa.plane.geometry.polygons.Polygon
 import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.segments.Segment
 import org.tendiwa.plane.geometry.segments.isParallel
@@ -92,12 +93,19 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
         previous: Point,
         point: Point,
         next: Point
-    ): Boolean =
+    ): Boolean
         // TODO: There is similar method isReflex; remove this method.
-        perpDotProduct(
+    {
+        assert(
+            !Polygon(
+                listOf(previous, point, next)
+            ).isClockwise()
+        )
+        return perpDotProduct(
             doubleArrayOf(point.x - previous.x, point.y - previous.y),
             doubleArrayOf(next.x - point.x, next.y - point.y)
-        ) >= 0
+        ) <= 0
+    }
 
     // TODO: Refactor this to use Vectors instead of arrays
     private fun perpDotProduct(a: DoubleArray, b: DoubleArray): Double =
@@ -194,22 +202,17 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
      * Finds if two edges going counter-clockwise make a convex or a reflex
      * angle.
      * @param a1 Start of the first edge.
-     * *
      * @param a2 End of the first edge.
-     * *
      * @param b1 Start of the second edge.
-     * *
      * @param b2 End of the second edge.
-     * *
      * @return True if the angle to the left between two edges
-     * * `&gt; Math.PI` (reflex), false otherwise (convex).
+     * `> Math.PI` (reflex), false otherwise (convex).
      */
-    private fun isReflex(a1: Point, a2: Point, b1: Point, b2: Point): Boolean {
-        return perpDotProduct(
+    private fun isReflex(a1: Point, a2: Point, b1: Point, b2: Point): Boolean =
+        perpDotProduct(
             doubleArrayOf(a2.x - a1.x, a2.y - a1.y),
             doubleArrayOf(b2.x - b1.x, b2.y - b1.y)
-        ) > 0
-    }
+        ) < 0
 
     fun setPreviousInLav(previous: Node?) {
         assert(previous !== this)

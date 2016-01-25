@@ -1,6 +1,5 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
-
 import org.tendiwa.plane.geometry.points.Point
 
 internal abstract class SplitNode(
@@ -15,20 +14,18 @@ internal abstract class SplitNode(
      * for that both nodes must already be constructed.
      */
     // TODO: Rename this to "neighbor" or something like this. Pair has
-    // different meaning in Kotlin
+    // TODO: different meaning in Kotlin
     override var pair: SplitNode? = null
         set(pair) {
             assert(pair!!.vertex == vertex)
-            this.pair = pair
+            field = pair
         }
 
-    internal override fun hasPair(): Boolean {
-        return true
-    }
+    internal override fun hasPair(): Boolean =
+        true
 
-    override fun isPair(node: Node): Boolean {
-        return pair === node
-    }
+    override fun isPair(node: Node): Boolean =
+        pair === node
 
     internal abstract val isLeft: Boolean
 }

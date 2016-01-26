@@ -7,7 +7,6 @@ import org.tendiwa.plane.geometry.circles.Circle
 import org.tendiwa.plane.geometry.points.Point
 import org.tendiwa.plane.geometry.points.distanceTo
 import org.tendiwa.plane.geometry.points.radiusVector
-import org.tendiwa.plane.geometry.polygons.Polygon
 import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.segments.Segment
 import org.tendiwa.plane.geometry.segments.isParallel
@@ -96,11 +95,6 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
     ): Boolean
         // TODO: There is similar method isReflex; remove this method.
     {
-        assert(
-            !Polygon(
-                listOf(previous, point, next)
-            ).isClockwise()
-        )
         return perpDotProduct(
             doubleArrayOf(point.x - previous.x, point.y - previous.y),
             doubleArrayOf(next.x - point.x, next.y - point.y)

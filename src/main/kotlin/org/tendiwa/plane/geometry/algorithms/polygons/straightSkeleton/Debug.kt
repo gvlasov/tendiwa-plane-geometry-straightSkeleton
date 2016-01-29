@@ -11,7 +11,7 @@ import org.tendiwa.plane.grid.dimensions.by
 import java.awt.Color
 
 internal class Debug {
-    private val debug = true
+    private val debug = false
 
     fun drawSplitEventArc(event: SplitEvent) {
         if (!debug) return

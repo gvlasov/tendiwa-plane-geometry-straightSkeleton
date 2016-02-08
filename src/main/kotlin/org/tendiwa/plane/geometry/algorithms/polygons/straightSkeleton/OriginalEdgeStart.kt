@@ -1,10 +1,10 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
 
+import org.tendiwa.collections.loopedLinks
 import org.tendiwa.plane.geometry.points.isLeftOf
 import org.tendiwa.plane.geometry.rays.RayIntersection
 import org.tendiwa.plane.geometry.segments.Segment
-import org.tenidwa.collections.utils.SuccessiveTuples
 import java.util.*
 
 /**
@@ -101,11 +101,14 @@ internal class OriginalEdgeStart(edge: Segment) : Node(edge.start) {
     // TODO: This method is defined at a wrong level of abstraction
     private fun asSegmentStream(mutableFace: MutableFace): List<Segment> {
         val segments = ArrayList<Segment>()
-        SuccessiveTuples.forEachLooped(mutableFace) { a, b ->
-            if (a.vertex !== b.vertex) {
-                segments.add(Segment(a.vertex, b.vertex))
+        mutableFace.loopedLinks
+            .forEach { it ->
+                val a = it.first
+                val b = it.second
+                if (a.vertex !== b.vertex) {
+                    segments.add(Segment(a.vertex, b.vertex))
+                }
             }
-        }
         return segments
     }
 

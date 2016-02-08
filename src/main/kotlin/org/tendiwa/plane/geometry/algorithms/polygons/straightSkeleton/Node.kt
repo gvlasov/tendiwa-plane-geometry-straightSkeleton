@@ -14,7 +14,6 @@ import org.tendiwa.plane.geometry.segments.reverse
 import org.tendiwa.plane.geometry.segments.vector
 import org.tendiwa.plane.geometry.vectors.*
 import org.tendiwa.plane.geometry.vectors.Vector
-import org.tenidwa.collections.utils.SuccessiveTuples
 import java.awt.Color
 import java.util.*
 
@@ -124,18 +123,6 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
 
     private fun growFace(newNode: Node, faceStart: OriginalEdgeStart) {
         faceStart.face().addLink(this, newNode)
-    }
-
-    fun drawLav() {
-        SuccessiveTuples.forEachLooped(
-            this
-        ) { a, b ->
-            Debug.canvas.drawArrow(
-                Segment(a.vertex, b.vertex),
-                Color.cyan,
-                1.0
-            )
-        }
     }
 
     internal abstract fun hasPair(): Boolean

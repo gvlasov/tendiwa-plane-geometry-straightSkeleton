@@ -260,11 +260,11 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
                     Color.lightGray,
                     Color.white)
                 for (i in 0..points.size - 1 - 1) {
-                    Debug.canvas.draw(
+                    Debug.canvas.drawSegment(
                         Segment(points[i], points[i + 1]),
                         colors.next())
                 }
-                Debug.canvas.draw(
+                Debug.canvas.drawCircle(
                     Circle(start.vertex, 2.0),
                     Color.yellow)
             }

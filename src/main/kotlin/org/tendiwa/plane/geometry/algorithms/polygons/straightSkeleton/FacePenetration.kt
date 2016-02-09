@@ -1,6 +1,6 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
-import org.tendiwa.canvas.algorithms.geometry.draw
+import org.tendiwa.canvas.algorithms.geometry.drawPolygon
 import org.tendiwa.canvas.awt.AwtCanvas
 import org.tendiwa.plane.geometry.circles.Circle
 import org.tendiwa.plane.geometry.points.Point
@@ -36,12 +36,12 @@ internal class FacePenetration(
         val ok = queue.size % 2 == 0
         if (!ok) {
             val canvas = AwtCanvas(100.by(100), 4)
-            canvas.draw(face.polygon, Color.red)
-            canvas.draw(
+            canvas.drawPolygon(face.polygon, Color.red)
+            canvas.drawCircle(
                 Circle(queue.peek(), 1.0),
                 Color.blue
             )
-            canvas.draw(intruded, Color.green)
+            canvas.drawSegment(intruded, Color.green)
         }
         assert(ok) { queue.size }
     }

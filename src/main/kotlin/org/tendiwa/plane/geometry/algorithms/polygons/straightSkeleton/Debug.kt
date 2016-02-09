@@ -15,7 +15,7 @@ internal class Debug {
 
     fun drawSplitEventArc(event: SplitEvent) {
         if (!debug) return
-        canvas.draw(
+        canvas.drawSegment(
             Segment(event.parent().vertex, event.point),
             Color.red
         )
@@ -23,11 +23,11 @@ internal class Debug {
 
     fun drawEdgeEventArcs(leftParent: Node, rightParent: Node, point: Point) {
         if (!debug) return
-        canvas.draw(
+        canvas.drawSegment(
             Segment(leftParent.vertex, point),
             Color.orange
         )
-        canvas.draw(
+        canvas.drawSegment(
             Segment(rightParent.vertex, point),
             Color.yellow
         )
@@ -59,22 +59,22 @@ internal class Debug {
 
     fun drawIntersectingArc(start: Point, end: Point) {
         if (!debug) return
-        canvas.draw(
+        canvas.drawSegment(
             Segment(start, end),
             Color.white)
     }
 
     fun draw3NodeLavArcs(point: EdgeEvent) {
         if (!debug) return
-        canvas.draw(
+        canvas.drawSegment(
             Segment(point.leftParent().vertex, point.point),
             Color.cyan
         )
-        canvas.draw(
+        canvas.drawSegment(
             Segment(point.rightParent().vertex, point.point),
             Color.cyan
         )
-        canvas.draw(
+        canvas.drawSegment(
             Segment(point.leftParent().previous().vertex, point.point),
             Color.cyan
         )
@@ -82,7 +82,7 @@ internal class Debug {
 
     fun draw2NodeLavArc(node1: Node, node2: Node) {
         if (!debug) return
-        canvas.draw(
+        canvas.drawSegment(
             Segment(node1.vertex, node2.vertex),
             Color.magenta)
     }

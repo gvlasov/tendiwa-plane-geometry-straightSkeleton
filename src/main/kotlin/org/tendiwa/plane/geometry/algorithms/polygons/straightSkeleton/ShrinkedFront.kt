@@ -3,7 +3,8 @@ package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableSet
-import org.tendiwa.canvas.algorithms.geometry.drawArrow
+import org.tendiwa.canvas.algorithms.geometry.Arrow
+import org.tendiwa.canvas.algorithms.geometry.draw
 import org.tendiwa.collections.MutableDoublyLinkedNode
 import org.tendiwa.math.constants.EPSILON
 import org.tendiwa.plane.geometry.points.Point
@@ -66,11 +67,11 @@ internal class ShrinkedFront
             return getExistingIntersectionPoint(reverse)
         } else {
             if (intersectionsOnSegments.containsValue(inner)) {
-                Debug.canvas.drawArrow(
+                Arrow(
+
                     inner,
-                    Color.white,
                     1.0
-                )
+                ).draw(Debug.canvas, Color.white)
                 assert(false)
             }
             val intersection = RayIntersection(inner, intruded)

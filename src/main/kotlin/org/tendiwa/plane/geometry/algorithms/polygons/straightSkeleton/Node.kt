@@ -1,7 +1,8 @@
 package org.tendiwa.plane.geometry.algorithms.polygons.straightSkeleton
 
 import com.google.common.collect.Iterators
-import org.tendiwa.canvas.algorithms.geometry.drawArrow
+import org.tendiwa.canvas.algorithms.geometry.Arrow
+import org.tendiwa.canvas.algorithms.geometry.draw
 import org.tendiwa.math.constants.EPSILON
 import org.tendiwa.plane.geometry.circles.Circle
 import org.tendiwa.plane.geometry.points.Point
@@ -12,8 +13,15 @@ import org.tendiwa.plane.geometry.segments.Segment
 import org.tendiwa.plane.geometry.segments.isParallel
 import org.tendiwa.plane.geometry.segments.reverse
 import org.tendiwa.plane.geometry.segments.vector
-import org.tendiwa.plane.geometry.vectors.*
 import org.tendiwa.plane.geometry.vectors.Vector
+import org.tendiwa.plane.geometry.vectors.VectorSector
+import org.tendiwa.plane.geometry.vectors.bisector
+import org.tendiwa.plane.geometry.vectors.dotPerp
+import org.tendiwa.plane.geometry.vectors.minus
+import org.tendiwa.plane.geometry.vectors.plus
+import org.tendiwa.plane.geometry.vectors.point
+import org.tendiwa.plane.geometry.vectors.sumVector
+import org.tendiwa.plane.geometry.vectors.unaryMinus
 import java.awt.Color
 import java.util.*
 
@@ -237,10 +245,10 @@ internal abstract class Node protected constructor(val vertex: Point) : Iterable
             private fun showCurrentLav() {
                 var current = start
                 do {
-                    Debug.canvas.drawArrow(
+                    Arrow(
                         Segment(current.vertex, current.next!!.vertex),
-                        Color.cyan,
-                        0.5)
+                        0.5
+                    ).draw(Debug.canvas, Color.cyan)
                     current = current.next!!
                 } while (current !== node)
                 assert(java.lang.Boolean.TRUE)

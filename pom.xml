@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>org.tendiwa</groupId>
-            <artifactId>drawing-awt</artifactId>
+            <artifactId>canvas-awt</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
